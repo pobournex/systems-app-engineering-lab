@@ -1,0 +1,18 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: lab-rabbitmq
+    hostname: lab-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"   # Prometheus plugin metrics
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-labuser}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:?set RABBITMQ_PASS in .env}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+
+volumes:
+  rabbitmq_data:

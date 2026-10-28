@@ -1,0 +1,86 @@
+# Static Endpoints + Service + ServiceMonitor so an existing kube-prometheus-stack
+# (namespace "monitoring", release "monitoring") scrapes a VM outside the cluster.
+# Replace LAB_VM_IP with the lab VM address.
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: lab-rabbitmq
+  namespace: monitoring
+  labels:
+    app: lab-rabbitmq
+subsets:
+  - addresses:
+      - ip: LAB_VM_IP
+    ports:
+      - name: metrics
+        port: 15692
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab-rabbitmq
+  namespace: monitoring
+  labels:
+    app: lab-rabbitmq
+spec:
+  ports:
+    - name: metrics
+      port: 15692
+      targetPort: 15692
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: lab-rabbitmq
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: lab-rabbitmq
+  endpoints:
+    - port: metrics
+      interval: 15s
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: lab-es-exporter
+  namespace: monitoring
+  labels:
+    app: lab-es-exporter
+subsets:
+  - addresses:
+      - ip: LAB_VM_IP
+    ports:
+      - name: metrics
+        port: 9114
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab-es-exporter
+  namespace: monitoring
+  labels:
+    app: lab-es-exporter
+spec:
+  ports:
+    - name: metrics
+      port: 9114
+      targetPort: 9114
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: lab-es-exporter
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: lab-es-exporter
+  endpoints:
+    - port: metrics
+      interval: 15s

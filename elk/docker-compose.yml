@@ -1,0 +1,40 @@
+# LAB ONLY: security is disabled so Kibana connects without tokens.
+# In production, xpack.security (TLS, authentication, roles) must be enabled.
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    container_name: lab-es
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    restart: unless-stopped
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.3
+    container_name: lab-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  es-exporter:
+    image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
+    container_name: lab-es-exporter
+    command:
+      - '--es.uri=http://elasticsearch:9200'
+    ports:
+      - "9114:9114"
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+volumes:
+  es_data:
