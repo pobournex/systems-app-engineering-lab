@@ -3,7 +3,7 @@
 Each step: what I did, what broke, how I fixed it, with the screenshot and a one-line note on what it shows.
 
 ## 1. VM and base setup
-- **Did:** Created an Ubuntu Server 24.04 VM on a Proxmox VE 9.1 cluster, installed OpenSSH, Docker and Compose.
+- **Did:** Built a new Ubuntu Server 24.04 VM from the ISO on a Proxmox VE 9.1 cluster (not a clone), then installed OpenSSH, Docker and Compose.
 - **Broke:** Console paste didn't work; SSH timed out though ping worked; installer used only half the disk.
 - **Fixed:** Moved to SSH; installed `openssh-server`; `lvextend -r -l +100%FREE`.
 
