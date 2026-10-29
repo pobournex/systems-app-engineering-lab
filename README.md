@@ -43,6 +43,40 @@ A small personal homelab I built to practise running, monitoring and troubleshoo
 5. **Kibana.** Created a data view and searched documents in Discover with KQL. ([12-13](docs/images/README.md))
 6. **Metrics and alerts.** Verified Prometheus targets up, queried both sources in Grafana Explore, built the two alert rules, and triggered and resolved each. ([14-23](docs/images/README.md))
 
+## Screenshots
+
+Key moments from the lab. The full set is in [docs/images](docs/images/README.md).
+
+**Queue piled up with no consumers (1,005 ready, 0 consumers)**
+![Queue piled up](docs/images/01-queue-piled-up.png)
+
+**Consumer started, queue draining**
+![Draining](docs/images/03-draining.png)
+
+**Messages stuck unacked**
+![Unacked stuck](docs/images/05-unacked-stuck.png)
+
+**Dead-lettered message and its `x-death` header**
+![x-death header](docs/images/08-x-death.png)
+
+**Elasticsearch yellow, then the allocation explain**
+![ES yellow](docs/images/10-es-yellow.png)
+![ES allocation explain](docs/images/10-es-explain.png)
+
+**Back to green after setting replicas to 0**
+![ES green](docs/images/11-es-green-fixed.png)
+
+**Prometheus scraping the lab VM**
+![Prometheus targets up](docs/images/16-prometheus-targets-up.png)
+
+**Queue alert firing, then resolved**
+![Queue alert firing](docs/images/20-alert-queue-firing.png)
+![Queue alert resolved](docs/images/21-alert-queue-resolved.png)
+
+**Elasticsearch alert firing, then resolved**
+![ES alert firing](docs/images/22-alert-es-firing.png)
+![ES alert resolved](docs/images/23-alert-es-resolved.png)
+
 ## Run it yourself
 
 Prerequisites: a Linux VM with Docker and Compose, Python 3.
