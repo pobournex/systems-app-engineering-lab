@@ -45,37 +45,22 @@ A small personal homelab I built to practise running, monitoring and troubleshoo
 
 ## Screenshots
 
-Key moments from the lab. The full set is in [docs/images](docs/images/README.md).
+<table>
+<tr>
+<td><img src="docs/images/01-queue-piled-up.png" width="420"><br><sub>Queue piled up: 1,005 ready, 0 consumers</sub></td>
+<td><img src="docs/images/03-draining.png" width="420"><br><sub>Consumer attached, queue draining</sub></td>
+</tr>
+<tr>
+<td><img src="docs/images/08-x-death.png" width="420"><br><sub>Dead-lettered message and its <code>x-death</code> header</sub></td>
+<td><img src="docs/images/10-es-explain.png" width="420"><br><sub>Elasticsearch yellow: allocation explain</sub></td>
+</tr>
+<tr>
+<td><img src="docs/images/20-alert-queue-firing.png" width="420"><br><sub>Queue alert firing</sub></td>
+<td><img src="docs/images/23-alert-es-resolved.png" width="420"><br><sub>Elasticsearch alert back to Normal</sub></td>
+</tr>
+</table>
 
-**Queue piled up with no consumers (1,005 ready, 0 consumers)**
-![Queue piled up](docs/images/01-queue-piled-up.png)
-
-**Consumer started, queue draining**
-![Draining](docs/images/03-draining.png)
-
-**Messages stuck unacked**
-![Unacked stuck](docs/images/05-unacked-stuck.png)
-
-**Dead-lettered message and its `x-death` header**
-![x-death header](docs/images/08-x-death.png)
-
-**Elasticsearch yellow, then the allocation explain**
-![ES yellow](docs/images/10-es-yellow.png)
-![ES allocation explain](docs/images/10-es-explain.png)
-
-**Back to green after setting replicas to 0**
-![ES green](docs/images/11-es-green-fixed.png)
-
-**Prometheus scraping the lab VM**
-![Prometheus targets up](docs/images/16-prometheus-targets-up.png)
-
-**Queue alert firing, then resolved**
-![Queue alert firing](docs/images/20-alert-queue-firing.png)
-![Queue alert resolved](docs/images/21-alert-queue-resolved.png)
-
-**Elasticsearch alert firing, then resolved**
-![ES alert firing](docs/images/22-alert-es-firing.png)
-![ES alert resolved](docs/images/23-alert-es-resolved.png)
+All 50+ screenshots, step by step with notes: [docs/lab-notes.md](docs/lab-notes.md).
 
 ## Run it yourself
 
