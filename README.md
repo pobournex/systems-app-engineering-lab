@@ -8,7 +8,7 @@ A small personal homelab I built to practise running, monitoring and troubleshoo
 
 | Area | What I did |
 |---|---|
-| Virtualisation | Built an Ubuntu Server 24.04 VM from scratch (ISO install) on a 3-node Proxmox VE 9.1 cluster; extended the LVM volume to use the full disk (`lvextend -r`). |
+| Virtualisation | Built an Ubuntu Server 24.04 VM (ISO install) on a 3-node Proxmox VE 9.1 cluster; extended the LVM volume to use the full disk (`lvextend -r`). |
 | Containers | Docker 29 + Compose v5 on the VM. |
 | Messaging | RabbitMQ 4.4 with the management UI. Python (pika) producers/consumers. |
 | Search / logs | Elasticsearch 8.15.3 (single node) and Kibana 8.15.3. |
