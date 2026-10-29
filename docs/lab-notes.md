@@ -10,6 +10,7 @@ Each step: what I did / what broke / how I fixed it, with the screenshot next to
 ## 2. RabbitMQ
 **Queue piles up with no consumer.** Published 1,000+ messages with nothing consuming.
 
+![pika installed, test producer sends 5 messages](images/02a-pika-install-producer-test.png)
 ![Overview: 1,005 ready, 0 consumers](images/01-queue-piled-up.png)
 ![Queues page](images/01b-queues-page-piled-up.png)
 ![list_queues: orders 1005, consumers 0](images/02-list-queues-piled-up.png)
@@ -29,6 +30,7 @@ Each step: what I did / what broke / how I fixed it, with the screenshot next to
 
 ![Overview with the DLQ](images/07a-overview-dlq.png)
 ![DLQ queue](images/07-dlq-queue.png)
+![DLQ queues](images/07-dlq-queues.png)
 ![x-death header](images/08-x-death.png)
 ![x-death on bad-order-2](images/08-x-death-bad-order-2.png)
 
@@ -73,11 +75,15 @@ Added static Endpoints, Service and ServiceMonitor objects so the existing Prome
 ## 5. Alerts
 Two Grafana-managed rules in folder `lab`, group `lab-alerts`: queue depth above 50, and ES cluster not green.
 
+![Rule 1 preview](images/19a-rule1-preview.png)
 ![New rule form](images/19c-new-rule-form.png)
 ![Queue rule detail](images/19e-rule1-detail.png)
 ![ES rule form](images/19f-rule2-form.png)
+![Rule 2 editor](images/19b-rule2.png)
+![Rule 2 preview](images/19b-rule2-preview.png)
 ![ES rule detail](images/19g-rule2-detail.png)
 ![Rules list](images/19-alert-rules.png)
+![Rules list with one pending](images/19h-rules-one-pending.png)
 
 - **Broke:** Default threshold 0 would have fired on the 2 DLQ messages; one editor defaulted to "IS ABOVE 1".
 - **Fixed:** Threshold 50; changed to "IS BELOW 1" where needed; moved a rule into the right folder.
