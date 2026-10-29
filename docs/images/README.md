@@ -59,4 +59,5 @@ Evidence from the lab, grouped by scenario. Filenames match the steps in the mai
 | 22a-es-trigger-yellow.png | Setting replicas to 1 to turn the cluster yellow |
 | 22-alert-es-firing.png, 22b-alert-es-pending.png | ES alert firing and pending |
 | 22c-alert-es-detail.png, 22d-alert-es-instance.png | ES alert detail and instance |
+| 23-alert-es-resolved.png | ES alert resolved: rule back to Normal after replicas set to 0 |
 | 23-alerts-normal-final.png | Both lab rules back to Normal |
