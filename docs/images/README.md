@@ -60,5 +60,7 @@ Evidence from the lab, grouped by scenario. Filenames match the steps in the mai
 | 22-alert-es-firing.png, 22b-alert-es-pending.png | ES alert firing and pending |
 | 22c-alert-es-detail.png, 22d-alert-es-instance.png | ES alert detail and instance |
 | 23-alert-es-resolved.png | ES alert resolved: rule back to Normal after replicas set to 0 |
-| 23-alert-es-resolved.png | ES alert resolved: rule back to Normal after replicas set to 0 |
 | 23-alerts-normal-final.png | Both lab rules back to Normal |
+| 28-ldap-bind-search.png | LDAP search of the LabUsers OU: 5 users with their groups |
+| 29-ldap-group-filter.png | LDAP filter for IT-Staff members: 2 users |
+| 30-ad-itstaff-members.png | IT-Staff Members tab in AD Users and Computers |

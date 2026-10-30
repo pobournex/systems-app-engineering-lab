@@ -205,5 +205,15 @@ Two Grafana-managed rules in folder `lab`, group `lab-alerts`: queue depth above
 ## 6. Runbooks
 I wrote [queue backing up](runbook-queue-backing-up.md) and [Elasticsearch yellow/red](runbook-elasticsearch-yellow-red.md) after the failures above, from what I learned. They were written after the fact and have not been used in a live incident.
 
+## 7. LDAP against Active Directory
+- **Did:** Installed `ldap-utils` on the lab VM. Confirmed port 389 on the domain controller was reachable and that it answered an anonymous root DSE query. Bound as a lab user and searched the `LabUsers` OU for users with `sAMAccountName` and `memberOf`: 5 users. Filtered on `memberOf` for the IT-Staff group: 2 users, matching the group's Members tab in AD Users and Computers.
+- **Broke:** First bind returned `Invalid credentials (49)`, data `52e`. I had typed a placeholder instead of a real account name.
+- **Fixed:** Used the real account. The server was reachable the whole time, so the problem was what I sent.
+- **Note:** Plain LDAP on 389 sends the password unencrypted. Lab only; production needs LDAPS (636) or StartTLS.
+
+![LDAP search of the LabUsers OU returning 5 users and their groups](images/28-ldap-bind-search.png)
+![LDAP filter for IT-Staff members returning 2 users](images/29-ldap-group-filter.png)
+![IT-Staff members as shown in AD Users and Computers](images/30-ad-itstaff-members.png)
+
 ## Not done
-Camunda, Kafka, NiFi and AD/LDAP were not built.
+Camunda, Kafka and NiFi were not built. AD/LDAP is covered only as read-only queries (section 7).

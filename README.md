@@ -14,6 +14,7 @@ A small personal homelab I built to practise running, monitoring and troubleshoo
 | Search / logs | Elasticsearch 8.15.3 (single node) and Kibana 8.15.3. |
 | Monitoring | Existing Prometheus Operator stack (kube-prometheus-stack) on a K3s cluster scrapes the VM via static Endpoints/Service/ServiceMonitor. RabbitMQ's built-in Prometheus plugin and the elasticsearch-exporter provide the metrics. |
 | Alerting | Two Grafana-managed alert rules (queue backlog, Elasticsearch cluster health) that I triggered, saw fire, and saw resolve. |
+| Directory | Ran LDAP queries from the lab VM against an Active Directory domain controller: bind, OU search, group filter (scenario 7). |
 | Runbooks | Two: [queue backing up](docs/runbook-queue-backing-up.md) and [Elasticsearch yellow/red](docs/runbook-elasticsearch-yellow-red.md). |
 
 ## Architecture
@@ -42,6 +43,7 @@ A small personal homelab I built to practise running, monitoring and troubleshoo
 4. **Elasticsearch goes yellow.** An index with 1 replica on a single node leaves the replica shard unassigned. `_cluster/allocation/explain` showed the `same_shard` decider. Fixed by setting replicas to 0 (fine for a lab, not a fix for production). ([09-11](docs/images/README.md))
 5. **Kibana.** Created a data view and searched documents in Discover with KQL. ([12-13](docs/images/README.md))
 6. **Metrics and alerts.** Verified Prometheus targets up, queried both sources in Grafana Explore, built the two alert rules, and triggered and resolved each. ([14-23](docs/images/README.md))
+7. **LDAP against Active Directory.** From the lab VM I confirmed the domain controller answered on port 389, bound as a lab user, listed the 5 users in an OU with their group memberships, and filtered for the members of one group (2 users). That matched the Members tab in AD Users and Computers. My first bind failed with `Invalid credentials (49)` because I had typed a placeholder instead of a real account. ([28-30](docs/images/README.md))
 
 ## Screenshots
 
@@ -113,7 +115,9 @@ Full detail in [docs/lab-notes.md](docs/lab-notes.md).
 
 ## Not built
 
-I did **not** build or run these, so nothing here claims experience with them: Camunda, Kafka, NiFi, Active Directory/LDAP. They are next on my learning list.
+I did **not** build or run these, so nothing here claims experience with them: Camunda, Kafka, NiFi. They are next on my learning list.
+
+Active Directory/LDAP is only partly covered: read-only LDAP queries from the lab VM against a lab domain controller over plain LDAP (port 389). No application signs in against it, the VM is not domain-joined, and I did not test LDAPS.
 
 ## Layout
 
