@@ -4,6 +4,16 @@ A small personal homelab I built to practise running, monitoring and troubleshoo
 
 > **Lab only.** Everything here runs on a single VM with throwaway credentials. Security is disabled on Elasticsearch for convenience; that must never be done in production.
 
+## Summary in plain language
+
+**RabbitMQ (message broker).** Programs send messages to a queue and other programs pick them up. I broke it three ways and read three counts to find the cause: *ready* (waiting), *unacked* (delivered but not confirmed) and *consumers* (how many are connected). No consumer means a backlog. A consumer that never confirms leaves messages stuck as unacked. A rejected "bad" message goes to a dead-letter queue instead of looping forever.
+
+**Elasticsearch and Kibana (search and logs).** Elasticsearch stores and searches documents, and Kibana is the screen I used to search them. Cluster health is green (all shards assigned), yellow (a replica is not assigned) or red (a primary is not). On one node, an index with a replica went yellow, because a replica cannot sit on the same node as its primary. I found the reason with the allocation explain API and fixed the lab case by setting replicas to 0.
+
+**Prometheus and Grafana (metrics and alerts).** Prometheus collects numbers from RabbitMQ and Elasticsearch on a schedule. Grafana charts them and raises an alert when a rule is true: queue depth above 50, or cluster health not green. I triggered both alerts and watched them fire and resolve.
+
+**Active Directory (LDAP).** From the lab VM I ran read-only LDAP queries against a Windows domain controller: a bind, a list of users in one OU, and a filter by group.
+
 ## What I built
 
 | Area | What I did |
